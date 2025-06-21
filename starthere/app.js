@@ -79,7 +79,13 @@ let db;
       INSERT INTO Users (username, password, role) VALUES
       ('alice123', 'alice@example.com', 'hashed1', 'owner'),
       ('carol123', 'carol@example.com', 'hashed2', 'owner')
-      
+    `);
+    // sample dogs
+    await db.execute(`
+      INSERT INTO Dogs (name, size, owner_id) VALUES
+      ('Buddy', 'medium', 1),
+      ('Max', 'large', 2)
+    `);
 
   } catch (err) {
     console.error('Error setting up database. Ensure Mysql is running: service mysql start', err);
