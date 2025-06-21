@@ -113,7 +113,7 @@ app.get('/api/walkrequests/open', async (req, res) => {
   }
 });
 
-// Summary for all walkers
+// walker summary
 app.get('/api/walkers/summary', async (req, res) => {
   try {
     const [summary] = await db.execute(`
