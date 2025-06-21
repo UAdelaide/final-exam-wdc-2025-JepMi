@@ -75,7 +75,18 @@ router.get('/me', (req, res) => {
   res.json(req.session.user);
 });
 
-
+// Logout route
+router.post('/logout', (req, res) => {
+  // eslint-disable-next-line consistent-return
+  req.session.destroy((err) => {
+    if (err) {
+      console.log('Session destroy failed:', err);
+      return res.status(500).json({ error: 'Could not log out' });
+    }
+    res.clearCookie('connect.sid');
+    res.redirect('/');
+  });
+});
 
 
 module.exports = router;
