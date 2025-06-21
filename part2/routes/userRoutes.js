@@ -55,30 +55,4 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// 🔐 Login route
-router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    const [rows] = await db.query('SELECT * FROM Users WHERE username = ? AND password_hash = ?', [username, password]);
-
-    if (rows.length === 0) {
-      return res.status(401).json({ error: 'Invalid credentials' });
-    }
-
-    // Save session data
-    const user = rows[0];
-    req.session.user = {
-      id: user.user_id,
-      username: user.username,
-      role: user.role
-    };
-
-    res.json({ message: 'Login successful', role: user.role });
-  } catch (err) {
-    console.error('Login error:', err);
-    res.status(500).json({ error: 'Something broke during login' });
-  }
-});
-
-
 module.exports = router;
