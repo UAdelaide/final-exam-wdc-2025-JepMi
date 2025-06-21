@@ -60,7 +60,7 @@
 </head>
 <body>
     <div id="app">
-        <div class="chaos-banner">🐶 Welcome to Dog Chaos Portal 🐾</div>
+        <div class="chaos-banner"> Welcome to Dog Chaos Portal 🐾</div>
 
         <div class="button-container">
             <button type="button" @click="loadDog">Show Me a Dog</button>
@@ -88,7 +88,7 @@
                             this.dogUrl = data.message;
                         })
                         .catch(err => {
-                            alert('🐾 Woof! Something went wrong.');
+                            alert(' Woof! Something went wrong.');
                             console.error(err);
                         });
                 }
