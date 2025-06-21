@@ -38,9 +38,11 @@
       transform: rotate(7deg);
     }
 
-    marquee {
+    .marquee {
       color: cyan;
       font-size: 32px;
+      display: inline-block;
+      animation: marquee-alternate 3s infinite alternate;
     }
       .marquee {
         display: inline-block;
@@ -56,7 +58,7 @@
   </style>
   </head>
 
-  <body>
+      <div class="marquee">🐶 Welcome to Dog Chaos Portal 🐾</div>
     <div id="app">
       <marquee behavior="alternate">🐶 Welcome to Dog Chaos Portal 🐾</marquee>
 
