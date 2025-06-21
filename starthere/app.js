@@ -71,7 +71,7 @@ app.get('/', async (req, res) => {
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// Dog info
+// Dog infor
 app.get('/api/dogs', async (req, res) =&gt; {
   try {
     const [dogResults] = await db.execute(`
@@ -84,7 +84,7 @@ app.get('/api/dogs', async (req, res) =&gt; {
     res.json(dogResults);
   } catch (err) {
     console.error(Error fetching dogs:, err);
-    res.status(500).json({ error: 'Could not get the list right now' });
+    res.status(500).json({ error: 'Could not get the dog list right now' });
   }
 });
 
