@@ -84,7 +84,7 @@ app.get('/api/dogs', async (req, res) =&gt; {
     res.json(dogResults);
   } catch (err) {
     console.error(Error fetching dogs:, err);
-    res.status(500).json({ error: 'Could not get the dog list right now' });
+    res.status(500).json({ error: 'Could not get the list right now' });
   }
 });
 
