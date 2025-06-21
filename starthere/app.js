@@ -70,6 +70,25 @@ app.get('/', async (req, res) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+//  Route to get all dogs and their owner's username
+app.get('/api/dogs', async (req, res) => {
+  try {
+    const [dogs] = await db.execute(`
+      SELECT
+        Dogs.name AS dog_name,
+        Dogs.size,
+        Users.username AS owner_username
+      FROM Dogs
+      INNER JOIN Users ON Dogs.owner_id = Users.user_id
+    `);
+    res.json(dogs);
+  } catch (err) {
+    console.error("Error fetching dogs: ", err);
+    res.status(500).json({ error: "Couldn't fetch dogs 🐶" });
+  }
+});
+
+
 
 
 module.exports = app;
