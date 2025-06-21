@@ -70,7 +70,7 @@ app.get('/', async (req, res) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-//  Route to get all dogs and their owner's username
+//  Route for all dogs info
 app.get('/api/dogs', async (req, res) => {
   try {
     const [dogs] = await db.execute(`
