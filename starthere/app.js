@@ -85,9 +85,11 @@ app.get('/api/dogs', async (req, res) => {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error("Error fetching dogs: ", err);
-    res.status(500).json({ error: "Couldn't fetch dogs 🐶" });
+    res.status(500).json({ error: "Couldn't fetch dogs!" });
   }
 });
+
+
 
 
 
