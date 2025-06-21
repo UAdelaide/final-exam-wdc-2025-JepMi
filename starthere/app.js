@@ -29,8 +29,8 @@ let db;
     // Now connect to the created database
     db = await mysql.createConnection({
       host: 'localhost',
-      user: 'devuser',
-      password: 'root',
+      user: 'root',
+      password: 'taga123',
       database: 'taga123'
     });
 
