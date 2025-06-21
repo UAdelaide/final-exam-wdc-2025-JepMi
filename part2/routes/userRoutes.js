@@ -32,7 +32,7 @@ router.post('/login', async (req, res) => {
     } if (user.role === 'walker') {
       return res.redirect('/walker-dashboard.html');
     }
-      return res.redirect('/dashboard.html'); // fallback
+      return res.redirect('/dashboard.html'); 
 
 
   } catch (error) {
