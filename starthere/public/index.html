@@ -72,6 +72,34 @@
     </div>
 
     <script>
+            const { createApp } = Vue
+
+createApp({
+  data() {
+    return {
+      dogUrl: ''
+    }
+  },
+  methods: {
+    loadDog() {
+      fetch('https://dog.ceo/api/breeds/image/random')
+        .then(res => res.json())
+        .then(data => {
+          this.dogUrl = data.message
+        })
+        .catch(err => {
+          alert('🐾 woof! something broke'); console.log(err)
+        })
+    }
+  },
+  mounted() {
+    this.loadDog()
+  }
+}).mount('#app')
+</script>
+</body>
+</html>
+
 
 
 
