@@ -86,10 +86,7 @@ let db;
       ('Buddy', 'medium', 1),
       ('Max', 'large', 2)
     `);
-
-    
-
-  } catch (err) {
+} catch (err) {
     console.error('Error setting up database. Ensure Mysql is running: service mysql start', err);
   }
 })();
