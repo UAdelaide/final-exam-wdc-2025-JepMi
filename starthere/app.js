@@ -109,7 +109,7 @@ app.get('/api/walkrequests/open', async (req, res) => {
       ORDER BY WalkRequests.requested_time
     `);
 
-    res.json(openWalks);
+    return res.json(openWalks);
   } catch (err) {
     console.error("Error getting open walks:", err);
     return res.status(500).json({ error: "Could not fetch walk requests" });
