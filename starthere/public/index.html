@@ -64,10 +64,10 @@
 
         <div class="button-container">
             <button type="button" @click="loadDog">Show Me a Dog</button>
-            <button disabled title="Mystery Button">Mystery Button</button>
+            <button type="button" disabled title="Mystery Button">Mystery Button</button>
         </div>
 
-        <img v-if="dogUrl" :src="dogUrl" alt="A random dog image" />
+        <img v-if="dogUrl" :src="dogUrl || '/images/default-dog.jpg'" alt="A random dog image" />
         <img v-else src="/images/default-dog.jpg" alt="Default dog image" />
     </div>
 
