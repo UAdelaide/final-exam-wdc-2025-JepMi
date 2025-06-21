@@ -77,9 +77,9 @@ let db;
     // sample users
     await db.execute(`
       INSERT INTO Users (username, password, role) VALUES
-      ('alice123', 'alice@example.com', 'hashed1', 'owner'),
-      ('carol123', 'carol@example.com', 'hashed2', 'owner')
-    `);
+  ('alice123', 'hashed1', 'owner'),
+  ('carol123', 'hashed2', 'owner')
+`);
     // sample dogs
     await db.execute(`
       INSERT INTO Dogs (name, size, owner_id) VALUES
