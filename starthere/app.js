@@ -77,7 +77,7 @@ let db;
     // sample users
     await db.execute(`
       INSERT INTO Users (username, password, role) VALUES
-      ('owner1', 'password1', 'owner'),
+      ('alice123', 'alice@example.com', 'hashed1', 'owner'),
       ('walker1', 'password2', 'walker')
 
   } catch (err) {
