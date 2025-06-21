@@ -75,8 +75,9 @@
         <button type="button" aria-hidden="true">Invisible to screen readers</button>
       </div>
 
-      <img src="/images/default-dog.jpg" :src="dogUrl || '/images/default-dog.jpg'" alt="A random dog image" />
-      </div>
+      <img :src="dogUrl || '/images/default-dog.jpg'" alt="A random dog image" />
+      <img v-else src="/images/default-dog.jpg" alt="Default dog image" />
+            </div>
     <script>
             const { createApp } = Vue
 
