@@ -30,8 +30,8 @@ let db;
     db = await mysql.createConnection({
       host: 'localhost',
       user: 'devuser',
-      password: 'devuser123',
-      database: 'testdb'
+      password: 'root',
+      database: 'taga123'
     });
 
     // Create a table if it doesn't exist
