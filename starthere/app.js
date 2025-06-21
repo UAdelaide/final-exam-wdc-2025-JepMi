@@ -54,6 +54,16 @@ let db;
       `);
     }
     //USERS TABLE
+    await db.execute(`
+      CREATE TABLE IF NOT EXISTS Users (
+        user_id INT AUTO_INCREMENT PRIMARY KEY,
+        username VARCHAR(50) NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        role ENUM('owner', 'walker') NOT NULL
+      )
+    `);
+
+    //
 
   } catch (err) {
     console.error('Error setting up database. Ensure Mysql is running: service mysql start', err);
