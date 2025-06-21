@@ -131,6 +131,7 @@ app.get('/api/walkers/summary', async (req, res) => {
     `);
     res.json(summary);
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error("Summary fail: ", err);
     res.status(500).json({ error: "Couldn’t load walker summary" });
   }
