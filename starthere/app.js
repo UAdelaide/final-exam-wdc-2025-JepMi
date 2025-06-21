@@ -72,7 +72,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Get all dogs - TODO: add pagination later
+// Get all dogs
 app.get('/api/dogs', async (req, res) => {
   try {
     const [results] = await db.execute(`
@@ -85,6 +85,7 @@ app.get('/api/dogs', async (req, res) => {
     `);
     res.json(results);
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error("Dogs query failed:", error);
     res.status(500).json({ error: "Database error" });
   }
