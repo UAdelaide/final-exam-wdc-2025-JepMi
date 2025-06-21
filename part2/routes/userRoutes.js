@@ -28,16 +28,16 @@ router.post('/login', async (req, res) => {
 
     // TODO: redirect to proper dashboard based on role
     if (user.role === 'owner') {
-      res.redirect('/owner-dashboard.html');
-    } else if (user.role === 'walker') {
-      res.redirect('/walker-dashboard.html');
-    } else {
-      res.redirect('/dashboard.html'); // fallback
+      return res.redirect('/owner-dashboard.html');
+    } if (user.role === 'walker') {
+      return res.redirect('/walker-dashboard.html');
     }
+      return res.redirect('/dashboard.html'); // fallback
+
 
   } catch (error) {
     console.error('Login error:', error);
-    res.status(500).send('Something went wrong');
+    return res.status(500).send('Something went wrong');
   }
 });
 
