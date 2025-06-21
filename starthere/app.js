@@ -74,7 +74,11 @@ let db;
       )
     `);
 
-    
+    // sample users
+    await db.execute(`
+      INSERT INTO Users (username, password, role) VALUES
+      ('owner1', 'password1', 'owner'),
+      ('walker1', 'password2', 'walker')
 
   } catch (err) {
     console.error('Error setting up database. Ensure Mysql is running: service mysql start', err);
