@@ -5,6 +5,13 @@ require('dotenv').config();
 
 const app = express();
 
+app.use(session({
+    secret: 'dog-walk-secret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // set true only if using HTTPS
+  }));
+
 // Middleware
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/public')));
