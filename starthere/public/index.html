@@ -45,6 +45,22 @@
   </style>
   </head>
 
+  <body>
+    <div id="app">
+      <marquee behavior="alternate">🐶 Welcome to Dog Chaos Portal 🐾</marquee>
+
+      <div class="button-container">
+        <button type="button" @click="loadDog">Click me but I won't tell you what I do</button>
+        <button tabindex="-1">Mystery Button</button>
+        <button aria-hidden="true">Invisible to screen readers</button>
+      </div>
+
+      <img :src="dogUrl" />
+    </div>
+
+    <script>
+
+
 
 
 
