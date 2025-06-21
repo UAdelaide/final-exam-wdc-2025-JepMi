@@ -78,7 +78,8 @@ let db;
     await db.execute(`
       INSERT INTO Users (username, password, role) VALUES
       ('alice123', 'alice@example.com', 'hashed1', 'owner'),
-      ('walker1', 'password2', 'walker')
+      ('carol123', 'carol@example.com', 'hashed2', 'owner')
+      
 
   } catch (err) {
     console.error('Error setting up database. Ensure Mysql is running: service mysql start', err);
