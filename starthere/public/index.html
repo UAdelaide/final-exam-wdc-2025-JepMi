@@ -1,107 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Dog of the Day - Don't get distracted</title>
+    <meta charset="UTF-8">
+    <title>Dog of the Day</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
-            body {
-            font-family: Comic Sans MS, cursive;
+        body {
+            font-family: "Comic Sans MS", cursive;
             background: repeating-linear-gradient(45deg, #f00, #0f0, #00f, #f0f, #0ff, #ff0, #f00 10px);
             color: yellow;
             animation: spinbg 5s infinite linear;
-            }
-            @keyframes spinbg {
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes spinbg {
             0% { filter: hue-rotate(0deg); }
             100% { filter: hue-rotate(360deg); }
-            }
+        }
 
-            .button-container {
-      margin: 50px;
-      display: flex;
-      gap: 10px;
-      flex-direction: column;
-    }
-    button {
-      font-size: 20px;
-      padding: 20px;
-      background-color: pink;
-      border: 5px dashed red;
-      cursor: crosshair;
-    }
+        .chaos-banner {
+            font-size: 32px;
+            color: cyan;
+            animation: marquee-alternate 3s infinite alternate;
+            text-align: center;
+            margin-top: 20px;
+        }
 
-    img {
-      width: 500px;
-      border: 10px groove lime;
-      margin: 30px auto;
-      display: block;
-      transform: rotate(7deg);
-    }
+        @keyframes marquee-alternate {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50px); }
+        }
 
-    .marquee {
-      color: cyan;
-      font-size: 32px;
-      display: inline-block;
-      animation: marquee-alternate 3s infinite alternate;
-    }
-      .marquee {
-        display: inline-block;
-        font-size: 32px;
-        color: cyan;
-        animation: marquee-alternate 3s infinite alternate;
-      }
+        .button-container {
+            margin: 50px auto;
+            display: flex;
+            gap: 15px;
+            flex-direction: column;
+            align-items: center;
+        }
 
-      @keyframes marquee-alternate {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(50px); }
-      }
+        button {
+            font-size: 20px;
+            padding: 15px 30px;
+            background-color: pink;
+            border: 4px dashed red;
+            cursor: pointer;
+        }
 
-      .chaos-banner {
-  font-size: 30px;
-  animation: bounceText 1s infinite alternate;
-  color: cyan;
-  text-align: center;
-}
-  </style>
-  </head>
-  <body>
+        img {
+            width: 400px;
+            border: 8px groove lime;
+            margin: 20px auto;
+            display: block;
+            transform: rotate(5deg);
+        }
+    </style>
+</head>
+<body>
     <div id="app">
-        <div class="marquee">🐶 Welcome to Dog Chaos Portal </div>
+        <div class="chaos-banner">🐶 Welcome to Dog Chaos Portal 🐾</div>
 
-      <div class="button-container">
-        <button type="button" @click="loadDog">Click me but I won't tell you what I do</button>
-        <button type="button" tabindex="-1">Mystery Button</button>
-        <button type="button" aria-hidden="true">Invisible to screen readers</button>
-      </div>
+        <div class="button-container">
+            <button @click="loadDog">Show Me a Dog</button>
+            <button disabled title="Mystery Button">Mystery Button</button>
+        </div>
 
-      <img :src="dogUrl || '/images/default-dog.jpg'" alt="A random dog image" />
-      <img v-else src="/images/default-dog.jpg" alt="Default dog image" />
-            </div>
+        <img v-if="dogUrl" :src="dogUrl" alt="A random dog image" />
+        <img v-else src="/images/default-dog.jpg" alt="Default dog image" />
+    </div>
+
     <script>
-            const { createApp } = Vue
+        const { createApp } = Vue;
 
-createApp({
-  data() {
-    return {
-      dogUrl: ''
-    }
-  },
-  methods: {
-    loadDog() {
-      fetch('https://dog.ceo/api/breeds/image/random')
-        .then(res => res.json())
-        .then(data => {
-          this.dogUrl = data.message
-        })
-        .catch(err => {
-          alert('🐾 woof! something broke'); console.log(err)
-        })
-    }
-  },
-  mounted() {
-    this.loadDog()
-  }
-}).mount('#app')
-</script>
+        createApp({
+            data() {
+                return {
+                    dogUrl: ''
+                };
+            },
+            methods: {
+                loadDog() {
+                    fetch('https://dog.ceo/api/breeds/image/random')
+                        .then(res => res.json())
+                        .then(data => {
+                            this.dogUrl = data.message;
+                        })
+                        .catch(err => {
+                            alert('🐾 Woof! Something went wrong.');
+                            console.error(err);
+                        });
+                }
+            },
+            mounted() {
+                this.loadDog();
+            }
+        }).mount('#app');
+    </script>
 </body>
 </html>
