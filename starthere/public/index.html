@@ -42,6 +42,17 @@
       color: cyan;
       font-size: 32px;
     }
+      .marquee {
+        display: inline-block;
+        font-size: 32px;
+        color: cyan;
+        animation: marquee-alternate 3s infinite alternate;
+      <div class="marquee">🐶 Welcome to Dog Chaos Portal 🐾</div>
+
+      @keyframes marquee-alternate {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(50px); }
+      }
   </style>
   </head>
 
@@ -51,8 +62,8 @@
 
       <div class="button-container">
         <button type="button" @click="loadDog">Click me but I won't tell you what I do</button>
-        <button tabindex="-1">Mystery Button</button>
-        <button aria-hidden="true">Invisible to screen readers</button>
+        <button type="button" tabindex="-1">Mystery Button</button>
+        <button type="button" aria-hidden="true">Invisible to screen readers</button>
       </div>
 
       <img :src="dogUrl" />
