@@ -31,7 +31,7 @@ let db;
       host: 'localhost',
       user: 'root',
       password: 'taga123',
-      database: 'taga123'
+      database: 'testdb'
     });
 
     // Create a table if it doesn't exist
