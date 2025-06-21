@@ -70,10 +70,12 @@ app.get('/', async (req, res) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-//  Route for all dogs info
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Get all dogs - TODO: add pagination later
 app.get('/api/dogs', async (req, res) => {
   try {
-    const [dogs] = await db.execute(`
+    const [results] = await db.execute(`
       SELECT
         Dogs.name AS dog_name,
         Dogs.size,
@@ -81,18 +83,17 @@ app.get('/api/dogs', async (req, res) => {
       FROM Dogs
       INNER JOIN Users ON Dogs.owner_id = Users.user_id
     `);
-    res.json(dogs);
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error("Error fetching dogs: ", err);
-    res.status(500).json({ error: "Couldn't fetch dogs!" });
+    res.json(results);
+  } catch (error) {
+    console.error("Dogs query failed:", error);
+    res.status(500).json({ error: "Database error" });
   }
 });
 
-// Get open walk requests
+// Open walk requests
 app.get('/api/walkrequests/open', async (req, res) => {
   try {
-    const [walks] = await db.execute(`
+    const [openWalks] = await db.execute(`
       SELECT
         WalkRequests.request_id,
         Dogs.name AS dog_name,
@@ -104,39 +105,41 @@ app.get('/api/walkrequests/open', async (req, res) => {
       JOIN Dogs ON WalkRequests.dog_id = Dogs.dog_id
       JOIN Users ON Dogs.owner_id = Users.user_id
       WHERE WalkRequests.status = 'open'
+      ORDER BY WalkRequests.requested_time
     `);
-    res.json(walks);
+
+    res.json(openWalks);
   } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error("Walk request error: ", err);
-    res.status(500).json({ error: "Failed to load walk requests" });
+    console.error("Error getting open walks:", err);
+    return res.status(500).json({ error: "Could not fetch walk requests" });
   }
 });
 
-// walker summary
+// Walker stats endpoint
 app.get('/api/walkers/summary', async (req, res) => {
   try {
-    const [summary] = await db.execute(`
+    const [walkerStats] = await db.execute(`
       SELECT
         u.username AS walker_username,
         COUNT(r.rating_id) AS total_ratings,
-        ROUND(AVG(r.rating), 1) AS average_rating,
-        COUNT(CASE WHEN wr.status = 'completed' THEN 1 END) AS completed_walks
+        ROUND(AVG(r.rating), 1) AS avg_rating,
+        COUNT(CASE WHEN wr.status = 'completed' THEN 1 END) AS walks_completed
       FROM Users u
       LEFT JOIN WalkApplications wa ON u.user_id = wa.walker_id
       LEFT JOIN WalkRequests wr ON wa.request_id = wr.request_id
       LEFT JOIN Ratings r ON wa.application_id = r.application_id
       WHERE u.role = 'walker'
-      GROUP BY u.user_id
+      GROUP BY u.user_id, u.username
     `);
-    res.json(summary);
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error("Summary fail: ", err);
-    res.status(500).json({ error: "Couldn’t load walker summary" });
+
+    res.json(walkerStats);
+  } catch (error) {
+    console.error("Walker summary query error:", error);
+    res.status(500).json({ error: "Failed to get walker data" });
   }
 });
 
+module.exports = app;
 
 
 
