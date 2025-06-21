@@ -26,13 +26,13 @@ router.post('/login', async (req, res) => {
       role: user.role
     };
 
-    // TODO: redirect to proper dashboard based on role
+    // redirect to proper dashboard based on role
     if (user.role === 'owner') {
       return res.redirect('/owner-dashboard.html');
     } if (user.role === 'walker') {
       return res.redirect('/walker-dashboard.html');
     }
-      return res.redirect('/dashboard.html'); 
+      return res.redirect('/dashboard.html');
 
 
   } catch (error) {
