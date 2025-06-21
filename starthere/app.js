@@ -53,7 +53,7 @@ let db;
         ('Brave New World', 'Aldous Huxley')
       `);
     }
-    //USERS TABLE
+    // USERS TABLE
     await db.execute(`
       CREATE TABLE IF NOT EXISTS Users (
         user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -63,7 +63,16 @@ let db;
       )
     `);
 
-    //
+    // DOGS TABLE
+    await db.execute(`
+      CREATE TABLE IF NOT EXISTS Dogs (
+        dog_id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(50) NOT NULL,
+        size ENUM('small', 'medium', 'large') NOT NULL,
+        owner_id INT,
+        FOREIGN KEY (owner_id) REFERENCES Users(user_id)
+      )
+    `);
 
   } catch (err) {
     console.error('Error setting up database. Ensure Mysql is running: service mysql start', err);
