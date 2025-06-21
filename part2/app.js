@@ -1,8 +1,6 @@
 const express = require('express');
 const path = require('path');
 require('dotenv').config();
-const mysql = require('mysql2/promise'); // Add this to use MySQL
-const session = require('express-session'); // Add this for login sessions
 
 
 const app = express();
