@@ -30,7 +30,7 @@ let db;
     db = await mysql.createConnection({
       host: 'localhost',
       user: 'root',
-      password: 'taga123',
+      password: '',
       database: 'testdb'
     });
 
