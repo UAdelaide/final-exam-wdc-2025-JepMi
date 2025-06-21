@@ -117,7 +117,7 @@ app.get('/api/walkrequests/open', async (req, res) => {
   }
 });
 
-// Walker 
+// Walker summary
 app.get('/api/walkers/summary', async (req, res) => {
   try {
     const [walkerStats] = await db.execute(`
@@ -136,6 +136,7 @@ app.get('/api/walkers/summary', async (req, res) => {
 
     res.json(walkerStats);
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error("Walker summary query error:", error);
     res.status(500).json({ error: "Failed to get walker data" });
   }
