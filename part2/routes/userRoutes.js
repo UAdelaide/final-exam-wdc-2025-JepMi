@@ -2,6 +2,45 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models/db');
 
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).send('Username and password required');
+  }
+
+  try {
+    const [users] = await db.query(
+      'SELECT * FROM Users WHERE username = ? AND password_hash = ?',
+      [username, password]
+    );
+
+    if (users.length === 0) {
+      return res.status(401).send('Login failed');
+    }
+
+    const user = users[0];
+    req.session.user = {
+      id: user.user_id,
+      username: user.username,
+      role: user.role
+    };
+
+    // TODO: redirect to proper dashboard based on role
+    if (user.role === 'owner') {
+      res.redirect('/owner-dashboard.html');
+    } else if (user.role === 'walker') {
+      res.redirect('/walker-dashboard.html');
+    } else {
+      res.redirect('/dashboard.html'); // fallback
+    }
+
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).send('Something went wrong');
+  }
+});
+
 
 // GET all users (for admin/testing)
 router.get('/', async (req, res) => {
