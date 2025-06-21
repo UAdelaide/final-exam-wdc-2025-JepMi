@@ -107,8 +107,32 @@ app.get('/api/walkrequests/open', async (req, res) => {
     `);
     res.json(walks);
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error("Walk request error: ", err);
     res.status(500).json({ error: "Failed to load walk requests" });
+  }
+});
+
+// Summary for all walkers
+app.get('/api/walkers/summary', async (req, res) => {
+  try {
+    const [summary] = await db.execute(`
+      SELECT
+        u.username AS walker_username,
+        COUNT(r.rating_id) AS total_ratings,
+        ROUND(AVG(r.rating), 1) AS average_rating,
+        COUNT(CASE WHEN wr.status = 'completed' THEN 1 END) AS completed_walks
+      FROM Users u
+      LEFT JOIN WalkApplications wa ON u.user_id = wa.walker_id
+      LEFT JOIN WalkRequests wr ON wa.request_id = wr.request_id
+      LEFT JOIN Ratings r ON wa.application_id = r.application_id
+      WHERE u.role = 'walker'
+      GROUP BY u.user_id
+    `);
+    res.json(summary);
+  } catch (err) {
+    console.error("Summary fail: ", err);
+    res.status(500).json({ error: "Couldn’t load walker summary" });
   }
 });
 
