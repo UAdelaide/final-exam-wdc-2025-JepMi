@@ -111,12 +111,13 @@ app.get('/api/walkrequests/open', async (req, res) => {
 
     return res.json(openWalks);
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error("Error getting open walks:", err);
     return res.status(500).json({ error: "Could not fetch walk requests" });
   }
 });
 
-// Walker stats endpoint
+// Walker 
 app.get('/api/walkers/summary', async (req, res) => {
   try {
     const [walkerStats] = await db.execute(`
